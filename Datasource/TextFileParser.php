@@ -11,12 +11,6 @@ class TextFileParser extends Datasource
   private $filePath;
   private $linesToSkip;
 
-  public function __construct($filePath, $linesToSkip = 0)
-  {
-    $this->filePath = $filePath;
-    $this->linesToSkip = $linesToSkip;
-  }
-
   function getOutputFields()
   {
     return ['line'];
@@ -61,9 +55,10 @@ class TextFileParser extends Datasource
     }
   }
 
-  static function instantiate($settings)
+  public function hydrate($settings)
   {
-    return new TextFileParser($settings['filePath'], $settings['linesToSkip']);
+    $this->filePath = $settings['filePath'];
+    $this->linesToSkip = $settings['linesToSkip'];
   }
 
   function getName()
