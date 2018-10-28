@@ -8,8 +8,6 @@ use AdimeoDataSuite\Bundle\CommonsBundle\Model\OutputManager;
 
 class TextFileParser extends Datasource
 {
-  private $filePath;
-  private $linesToSkip;
 
   function getOutputFields()
   {
@@ -41,10 +39,10 @@ class TextFileParser extends Datasource
   function execute($args, OutputManager $output)
   {
     $count = 0;
-    $fp = fopen($this->filePath, "r");
+    $fp = fopen($this->getSettings()['filePath'], "r");
     if ($fp) {
       while (($line = fgets($fp)) !== false) {
-        if($count >= $this->linesToSkip){
+        if($count >= $this->getSettings()['linesToSkip']){
           $line = trim($line);
           $output->writeln('Processing line ' . ($count + 1));
           $this->index(array('line' => $line));
@@ -53,14 +51,8 @@ class TextFileParser extends Datasource
       }
       fclose($fp);
     } else {
-      throw new DatasourceExecutionException('Error opening file "' . $this->filePath . '"');
+      throw new DatasourceExecutionException('Error opening file "' . $this->getSettings()['filePath'] . '"');
     }
-  }
-
-  public function hydrate($settings)
-  {
-    $this->filePath = $settings['filePath'];
-    $this->linesToSkip = $settings['linesToSkip'];
   }
 
   function getDisplayName()
