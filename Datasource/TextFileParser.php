@@ -63,7 +63,7 @@ class TextFileParser extends Datasource
     $this->linesToSkip = $settings['linesToSkip'];
   }
 
-  function getName()
+  function getDisplayName()
   {
     return 'Text file Parser';
   }
