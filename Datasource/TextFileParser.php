@@ -20,10 +20,12 @@ class TextFileParser extends Datasource
   {
     return array(
       'filePath' => array(
+        'label' => 'File path (can be an URL)',
         'type' => 'string',
         'required' => true
       ),
       'linesToSkip' => array(
+        'label' => 'Lines to skip',
         'type' => 'integer',
         'required' => false,
         'default' => 0
