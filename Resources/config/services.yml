@@ -3,4 +3,4 @@ services:
     class: AdimeoDataSuite\Bundle\DatasourcesBundle\Datasource\TextFileParser
     public: true
     tags:
-      - { name: adimeodatasource.datasource }
+      - { name: adimeodatasuite.datasource }
