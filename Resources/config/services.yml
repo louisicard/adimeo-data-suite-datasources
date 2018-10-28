@@ -1,1 +1,5 @@
 services:
+  adimeodatasource.datasource.textfileparser:
+    class: AdimeoDataSuite\Bundle\DatasourcesBundle\Datasource\TextFileParser
+    tags:
+      - { name: adimeodatasource.datasource }
