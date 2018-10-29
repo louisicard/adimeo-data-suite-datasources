@@ -2,9 +2,9 @@
 
 namespace AdimeoDataSuite\Datasource;
 
-use AdimeoDataSuite\Bundle\CommonsBundle\Exception\DatasourceExecutionException;
-use AdimeoDataSuite\Bundle\CommonsBundle\Model\Datasource;
-use AdimeoDataSuite\Bundle\CommonsBundle\Model\OutputManager;
+use AdimeoDataSuite\Exception\DatasourceExecutionException;
+use AdimeoDataSuite\Model\Datasource;
+use AdimeoDataSuite\Model\OutputManager;
 
 class TextFileParser extends Datasource
 {
