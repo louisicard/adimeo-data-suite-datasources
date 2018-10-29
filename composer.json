@@ -1,11 +1,9 @@
 {
 	"name": "adimeo-data-suite/datasources",
-  "type": "symfony-bundle",
   "autoload": {
-    "psr-4": { "AdimeoDataSuite\\Bundle\\DatasourcesBundle\\": "" }
+    "psr-4": { "AdimeoDataSuite\\": "" }
   },
   "require": {
-    "symfony/framework-bundle": "*",
     "adimeo-data-suite/commons": "dev-master",
     "adimeo-data-suite/security": "dev-master"
   },

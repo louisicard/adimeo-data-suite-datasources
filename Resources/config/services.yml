@@ -1,6 +1,0 @@
-services:
-  adimeodatasource.datasource.textfileparser:
-    class: AdimeoDataSuite\Bundle\DatasourcesBundle\Datasource\TextFileParser
-    public: true
-    tags:
-      - { name: adimeodatasuite.datasource }

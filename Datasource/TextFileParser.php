@@ -1,6 +1,6 @@
 <?php
 
-namespace AdimeoDataSuite\Bundle\DatasourcesBundle\Datasource;
+namespace AdimeoDataSuite\Datasource;
 
 use AdimeoDataSuite\Bundle\CommonsBundle\Exception\DatasourceExecutionException;
 use AdimeoDataSuite\Bundle\CommonsBundle\Model\Datasource;
