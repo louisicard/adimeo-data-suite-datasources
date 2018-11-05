@@ -37,8 +37,12 @@ class TextFileParser extends Datasource
 
   function execute($args)
   {
+    $filePath = $this->getSettings()['filePath'];
+    if(isset($args[0]) && file_exists($args[0]) && is_file($args[0])) {
+      $filePath = $args[0];
+    }
     $count = 0;
-    $fp = fopen($this->getSettings()['filePath'], "r");
+    $fp = fopen($filePath, "r");
     if ($fp) {
       while (($line = fgets($fp)) !== false) {
         if($count >= $this->getSettings()['linesToSkip']){
