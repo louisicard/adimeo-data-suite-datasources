@@ -5,7 +5,8 @@
   },
   "require": {
     "adimeo-data-suite/commons": "dev-master",
-    "adimeo-data-suite/security": "dev-master"
+    "adimeo-data-suite/security": "dev-master",
+    "adimeo-data-suite/filters": "dev-master"
   },
   "repositories": [
     {
@@ -15,6 +16,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/louisicard/adimeo-data-suite-commons"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/louisicard/adimeo-data-suite-filters"
     }
   ]
 }

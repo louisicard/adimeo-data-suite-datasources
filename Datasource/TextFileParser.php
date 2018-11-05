@@ -4,7 +4,6 @@ namespace AdimeoDataSuite\Datasource;
 
 use AdimeoDataSuite\Exception\DatasourceExecutionException;
 use AdimeoDataSuite\Model\Datasource;
-use AdimeoDataSuite\Model\OutputManager;
 
 class TextFileParser extends Datasource
 {
@@ -36,7 +35,7 @@ class TextFileParser extends Datasource
     return array();
   }
 
-  function execute($args, OutputManager $output)
+  function execute($args)
   {
     $count = 0;
     $fp = fopen($this->getSettings()['filePath'], "r");
@@ -44,7 +43,7 @@ class TextFileParser extends Datasource
       while (($line = fgets($fp)) !== false) {
         if($count >= $this->getSettings()['linesToSkip']){
           $line = trim($line);
-          $output->writeln('Processing line ' . ($count + 1));
+          $this->getOutputManager()->writeln('Processing line ' . ($count + 1));
           $this->index(array('line' => $line));
         }
         $count++;
