@@ -43,20 +43,32 @@ class JSONParser extends Datasource
     else {
       throw new DatasourceExecutionException('Missing file path!');
     }
-    $count = 0;
-    $fp = fopen($filePath, "r");
-    if ($fp) {
-      while (($line = fgets($fp)) !== false) {
-        if($count >= $this->getSettings()['linesToSkip']){
-          $line = trim($line);
-          $this->getOutputManager()->writeln('Processing line ' . ($count + 1));
-          $this->index(array('line' => $line));
-        }
-        $count++;
+    $arrContextOptions=array(
+      "ssl"=>array(
+        "verify_peer"=>false,
+        "verify_peer_name"=>false,
+      ),
+    );
+    $json = file_get_contents($filePath, false, stream_context_create($arrContextOptions));
+    if (!isset($json))
+      throw new DatasourceExecutionException('Could not parse JSON file');
+    $data = json_decode($json, true);
+    if ($data == null) {
+      $data = array();
+    }
+    $r = array();
+    $fields = array_map('trim', explode(',', $this->getSettings()['jsonFields']));
+    foreach ($data as $doc) {
+      $tmp = array();
+      foreach ($fields as $field) {
+        if (isset($doc[$field]))
+          $tmp[$field] = $doc[$field];
       }
-      fclose($fp);
-    } else {
-      throw new DatasourceExecutionException('Error opening file "' . $this->getSettings()['filePath'] . '"');
+      if (!empty($tmp))
+        $r[] = $tmp;
+    }
+    foreach($r as $doc) {
+      $this->index($doc);
     }
   }
 
