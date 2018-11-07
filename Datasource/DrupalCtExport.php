@@ -32,7 +32,7 @@ class DrupalCtExport extends Datasource
         'required' => false
       ),
       'contentType' => array(
-        'label' => 'Content type restriction',
+        'label' => 'Content type restriction (E.g.: node|*)',
         'type' => 'string',
         'required' => false
       )
