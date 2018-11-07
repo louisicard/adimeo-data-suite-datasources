@@ -152,6 +152,9 @@ class OAIHarvester extends Datasource
         $this->harvest($set, $token, $count);
       }
       else{
+        if($this->hasBatchExecution()) {
+          $this->emptyBatchStack();
+        }
         $this->getOutputManager()->writeln($token);
         exit(9);
       }
