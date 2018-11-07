@@ -10,7 +10,7 @@ class JSONParser extends Datasource
 
   function getOutputFields()
   {
-    return ['line'];
+    return array_map('trim', explode(',', $this->getSettings()['jsonFields']));
   }
 
   function getSettingFields()
