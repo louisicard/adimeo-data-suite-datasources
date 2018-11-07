@@ -183,7 +183,7 @@ class OAIHarvester extends Datasource
       $content['encoding'] = $matches['encoding'][0];
     }
     $content['content'] = $this->cleanUTF8String($response->getBody());
-    return $response;
+    return $content;
   }
 
   private function cleanUTF8String($str){
