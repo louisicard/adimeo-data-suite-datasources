@@ -70,6 +70,7 @@ class OAIHarvester extends Datasource
     } else {
       $this->harvest(NULL, $token, 0, true);
     }
+    $this->emptyBatchStack();
   }
 
   private function harvest($set, $resumptionToken = null, $count = 0, $cli = false) {
