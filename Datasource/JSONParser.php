@@ -38,7 +38,7 @@ class JSONParser extends Datasource
   function execute($args)
   {
     if(isset($args['filePath'])) {
-      $filePath = $args[0];
+      $filePath = $args['filePath'];
     }
     else {
       throw new DatasourceExecutionException('Missing file path!');
