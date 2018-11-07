@@ -24,11 +24,6 @@ class DirectoryScanner extends Datasource
     );
   }
 
-  function getExecutionArguments()
-  {
-    return array();
-  }
-
   function execute($args)
   {
     $path = $this->getSettings()['path'];

@@ -30,11 +30,6 @@ class TextFileParser extends Datasource
     );
   }
 
-  function getExecutionArguments()
-  {
-    return array();
-  }
-
   function execute($args)
   {
     $filePath = $this->getSettings()['filePath'];

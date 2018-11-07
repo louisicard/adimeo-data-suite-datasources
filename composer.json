@@ -6,7 +6,8 @@
   "require": {
     "adimeo-data-suite/commons": "dev-master",
     "adimeo-data-suite/security": "dev-master",
-    "adimeo-data-suite/filters": "dev-master"
+    "adimeo-data-suite/filters": "dev-master",
+    "guzzlehttp/guzzle": "*"
   },
   "repositories": [
     {
