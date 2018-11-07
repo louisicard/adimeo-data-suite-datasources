@@ -39,6 +39,11 @@ class DrupalCtExport extends Datasource
     );
   }
 
+  function getExecutionArgumentFields()
+  {
+    return array();
+  }
+
   function execute($args)
   {
     $count = 0;

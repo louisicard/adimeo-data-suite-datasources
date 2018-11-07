@@ -5,7 +5,7 @@ namespace AdimeoDataSuite\Datasource;
 use AdimeoDataSuite\Exception\DatasourceExecutionException;
 use AdimeoDataSuite\Model\Datasource;
 
-class TextFileParser extends Datasource
+class JSONParser extends Datasource
 {
 
   function getOutputFields()
@@ -16,16 +16,10 @@ class TextFileParser extends Datasource
   function getSettingFields()
   {
     return array(
-      'filePath' => array(
-        'label' => 'File path (can be an URL)',
+      'jsonFields' => array(
+        'label' => 'JSON fields (comma separated)',
         'type' => 'string',
         'required' => true
-      ),
-      'linesToSkip' => array(
-        'label' => 'Lines to skip',
-        'type' => 'integer',
-        'required' => false,
-        'default' => 0
       )
     );
   }
@@ -36,16 +30,19 @@ class TextFileParser extends Datasource
       'filePath' => array(
         'label' => 'File path (can be an URL)',
         'type' => 'string',
-        'required' => true,
-        'default_from_settings' => true
+        'required' => true
       )
     );
   }
 
-
   function execute($args)
   {
-    $filePath = $args['filePath'];
+    if(isset($args['filePath'])) {
+      $filePath = $args[0];
+    }
+    else {
+      throw new DatasourceExecutionException('Missing file path!');
+    }
     $count = 0;
     $fp = fopen($filePath, "r");
     if ($fp) {
@@ -65,7 +62,7 @@ class TextFileParser extends Datasource
 
   function getDisplayName()
   {
-    return 'Text file Parser';
+    return 'JSON parser';
   }
 
 }

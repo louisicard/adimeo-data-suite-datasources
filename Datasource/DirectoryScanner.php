@@ -24,12 +24,21 @@ class DirectoryScanner extends Datasource
     );
   }
 
+  function getExecutionArgumentFields()
+  {
+    return array(
+      'path' => array(
+        'label' => 'Directory path',
+        'type' => 'string',
+        'required' => true,
+        'default_from_settings' => true
+      )
+    );
+  }
+
   function execute($args)
   {
-    $path = $this->getSettings()['path'];
-    if(isset($args[0]) && file_exists($args[0]) && is_dir($args[0])) {
-      $path = $args[0];
-    }
+    $path = $args['path'];
     if(file_exists($path) && is_dir($path)) {
       $path = realpath($path);
       $this->scanDirectory($path, function($file) {
