@@ -34,6 +34,7 @@ class WebCrawler extends Datasource
 
   public function handleDataFromCallback($document){
     $this->index($document);
+    $this->emptyBatchStack();
   }
 
   function getDisplayName()
