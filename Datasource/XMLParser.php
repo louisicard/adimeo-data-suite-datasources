@@ -5,7 +5,6 @@ namespace AdimeoDataSuite\Datasource;
 use AdimeoDataSuite\Exception\DatasourceExecutionException;
 use AdimeoDataSuite\Model\Datasource;
 use GuzzleHttp\Client;
-use Symfony\Component\HttpFoundation\File\File;
 
 class XMLParser extends Datasource
 {
@@ -55,15 +54,11 @@ class XMLParser extends Datasource
   {
     $url = $this->getSettings()['url'];
     if(isset($args['url']) && !empty($args['url'])) {
-      if($args['url'] instanceof File) {
-        $url = 'file://' . $args['url']->getRealPath();
+      if(strpos($args['url'], '/') === 0) {
+        $url = "file://" . $args['url'];
       }
       else {
-        if (strpos($args['url'], '/') === 0) {
-          $url = "file://" . $args['url'];
-        } else {
-          $url = $args['url'];
-        }
+        $url = $args['url'];
       }
     }
     if(strpos($url, 'file://') === 0) {
