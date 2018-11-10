@@ -48,6 +48,11 @@ class DrupalCtExport extends Datasource
   {
     $count = 0;
     try {
+      if(isset($args['xml'])){
+        $xml = simplexml_load_string($args['xml']);
+        $this->processXML($xml, $count);
+        return;
+      }
 
       $settings = $this->getSettings();
 
