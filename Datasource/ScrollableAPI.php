@@ -28,9 +28,9 @@ class ScrollableAPI extends Datasource
         'required' => true
       ),
       'parameters' => array(
-        'label' => 'Parameters for the request (use !from, !limit for scrolling parameters)',
-        'type' => 'string',
-        'required' => true
+        'label' => 'Request body (use !from, !limit for scrolling parameters)',
+        'type' => 'textarea',
+        'required' => false
       ),
       'start' => array(
         'label' => 'Start at',
@@ -92,7 +92,7 @@ class ScrollableAPI extends Datasource
       return eval($code);
     };
     if($res->getStatusCode() < 400) {
-      $content = $res->getBody();
+      $content = (string)$res->getBody();
       return $callable($content, $explodingCode);
     }
     throw new DatasourceExecutionException('Call failed (status code ' . $res->getStatusCode() . ')' . PHP_EOL . $res->getBody());
