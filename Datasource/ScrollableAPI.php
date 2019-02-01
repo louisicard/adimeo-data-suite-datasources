@@ -52,7 +52,23 @@ class ScrollableAPI extends Datasource
 
   function getExecutionArgumentFields()
   {
-    return array();
+    return array(
+      'arg1' => array(
+        'label' => 'Argument 1',
+        'type' => 'string',
+        'required' => false,
+      ),
+      'arg2' => array(
+        'label' => 'Argument 2',
+        'type' => 'string',
+        'required' => false,
+      ),
+      'arg3' => array(
+        'label' => 'Argument 3',
+        'type' => 'string',
+        'required' => false,
+      )
+    );
   }
 
   function execute($args)
@@ -63,7 +79,7 @@ class ScrollableAPI extends Datasource
     $start = $this->getSettings()['start'];
     $batchSize = $this->getSettings()['batchSize'];
     $explodingCode = $this->getSettings()['explodingCode'];
-    while(!empty($docs = $this->getContentFromAPI($apiUrl, $method, $parameters, $start, $batchSize, $explodingCode))) {
+    while(!empty($docs = $this->getContentFromAPI($apiUrl, $method, $parameters, $start, $batchSize, $explodingCode, $args))) {
       foreach($docs as $doc) {
         $this->index(array(
           'doc' => $doc
@@ -74,16 +90,17 @@ class ScrollableAPI extends Datasource
 
   }
 
-  private function getContentFromAPI($apiUrl, $method, $parameters, $start, $batchSize, $explodingCode) {
+  private function getContentFromAPI($apiUrl, $method, $parameters, $start, $batchSize, $explodingCode, $args) {
+    $placeholders = array(
+      '!from' => $start,
+      '!limit' => $batchSize
+    );
+    foreach($args as $k => $arg) {
+      $placeholders['!' . $k] = $arg;
+    }
     $this->getOutputManager()->writeLn('Getting content from ' . $start);
-    $url = $this->injectScrollingParameters($apiUrl, array(
-      '!from' => $start,
-      '!limit' => $batchSize
-    ));
-    $params = $this->injectScrollingParameters($parameters, array(
-      '!from' => $start,
-      '!limit' => $batchSize
-    ));
+    $url = $this->injectScrollingParameters($apiUrl, $placeholders);
+    $params = $this->injectScrollingParameters($parameters, $placeholders);
     $client = new Client();
     $res = $client->request($method, $url, array(
       'body' => $params
