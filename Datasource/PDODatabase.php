@@ -82,6 +82,9 @@ class PDODatabase extends Datasource
             $sql = $settings['sql'];
             $sql = str_replace('@limit', $settings['batchSize'], $sql);
             $sql = str_replace('@offset', $offset, $sql);
+            foreach($args as $k => $v) {
+              $sql = str_replace('@' . $k, $v, $sql);
+            }
 
             $this->getOutputManager()->writeln('Executing SQL: ' . $sql);
 
