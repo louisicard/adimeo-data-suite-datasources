@@ -94,6 +94,9 @@ class PDODatabase extends Datasource
               try {
                 $res = $pdo->query($sql);
                 $continue = false;
+                if($res === FALSE) {
+                  $this->getOutputManager()->writeLn('!!! >>> An error has occured: ' . $pdo->errorInfo()[2]);
+                }
                 while ($row = $res->fetch(\PDO::FETCH_ASSOC)) {
                   $continue = $this->hasPagination();
                   $count++;
