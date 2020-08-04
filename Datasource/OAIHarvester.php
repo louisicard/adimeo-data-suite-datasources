@@ -114,6 +114,7 @@ class OAIHarvester extends Datasource
       /** @var \DOMNode $node */
       if ($node->nodeName == 'xmlns') {
         $xpath->registerNamespace('oai', $node->nodeValue);
+        break;
       }
     }
     $items = $xpath->query('oai:ListRecords/oai:record');
