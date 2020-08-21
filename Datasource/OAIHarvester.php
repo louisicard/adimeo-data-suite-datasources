@@ -150,7 +150,7 @@ class OAIHarvester extends Datasource
       gc_enable();
       gc_collect_cycles();
       if(!$cli){
-        $this->harvest($set, $token, $count);
+        return $this->harvest($set, $token, $count);
       }
       else{
         if($this->hasBatchExecution()) {
