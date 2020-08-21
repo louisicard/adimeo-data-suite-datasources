@@ -161,6 +161,9 @@ class OAIHarvester extends Datasource
       }
     }
     if($cli){
+      if($this->hasBatchExecution()) {
+        $this->emptyBatchStack();
+      }
       exit(0);
     }
     return $count;
