@@ -50,6 +50,8 @@ class DrupalCtExport extends Datasource
     try {
       if(isset($args['xml'])){
         $xml = simplexml_load_string($args['xml']);
+        if(!$xml)
+          return;
         $this->processXML($xml, $count);
         return;
       }
@@ -114,6 +116,8 @@ class DrupalCtExport extends Datasource
    * @param \SimpleXMLElement $xml
    */
   private function processXML($xml, &$count){
+    if(!$xml)
+      return;
     foreach ($xml->xpath('/entities/entity') as $entity) {
       /* @var $node \SimpleXMLElement */
       $id = count($entity->xpath('@id')) > 0 ? (string)$entity->xpath('@id')[0] : null;
