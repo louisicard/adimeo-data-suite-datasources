@@ -52,7 +52,7 @@ class DrupalCtExport extends Datasource
         $xml = simplexml_load_string($args['xml']);
         if(!$xml)
           return;
-        $this->processXML($xml, $count);
+        $this->processXML($xml, $count, true);
         return;
       }
 
@@ -115,7 +115,7 @@ class DrupalCtExport extends Datasource
    *
    * @param \SimpleXMLElement $xml
    */
-  private function processXML($xml, &$count){
+  private function processXML($xml, &$count, $forceEmptyingBatchStack = false){
     if(!$xml)
       return;
     foreach ($xml->xpath('/entities/entity') as $entity) {
@@ -155,6 +155,9 @@ class DrupalCtExport extends Datasource
           'export_id' => $export_id,
           'xml' => simplexml_load_string($entity->asXML()),
         ));
+        if($forceEmptyingBatchStack) {
+          $this->emptyBatchStack();
+        }
         $count++;
       }
     }
