@@ -10,6 +10,8 @@ use GuzzleHttp\Cookie\SetCookie;
 class OAIHarvester extends Datasource
 {
 
+  private $from = null;
+
   function getOutputFields()
   {
     return array(
@@ -43,12 +45,23 @@ class OAIHarvester extends Datasource
 
   function getExecutionArgumentFields()
   {
-    return array();
+    return array(
+      'from' => array(
+        'label' => 'From (date YYYY-MM-DD)',
+        'type' => 'string',
+        'required' => false
+      ));
   }
 
 
   function execute($args)
   {
+    if(isset($args['from']) && $args['from'] != null && !empty($args['from'])) {
+      $this->from = $args['from'];
+    }
+    else {
+      $this->from = null;
+    }
     $sets = array_map('trim', explode(',', $this->getSettings()['sets']));
     $count = 0;
     if (count($sets) > 0) {
@@ -76,7 +89,7 @@ class OAIHarvester extends Datasource
   private function harvest($set, $resumptionToken = null, $count = 0, $cli = false) {
     $doc = new \DOMDocument();
     if ($resumptionToken == null)
-      $url = $this->getSettings()['oaiServerUrl'] . '?verb=ListRecords&metadataPrefix=' . $this->getSettings()['metaDataPrefix'] . ($set != NULL ? '&set=' . $set : '');
+      $url = $this->getSettings()['oaiServerUrl'] . '?verb=ListRecords&metadataPrefix=' . $this->getSettings()['metaDataPrefix'] . ($set != NULL ? '&set=' . $set : '') . ($this->from != null ? '&from=' . $this->from : '');
     else
       $url = $this->getSettings()['oaiServerUrl'] . '?verb=ListRecords&resumptionToken=' . urlencode($resumptionToken);
 
